@@ -1,2 +1,3 @@
 # bdaywish
-Wish your best friends happy birthday in a little creative way
+Wish your best friend happy birthday in a little creative way
+It is a simple website\\
