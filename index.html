@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Birthday! 🎉</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background: #ffccf9;
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+        }
+
+        .container {
+            display: none;
+            position: relative;
+            height: 100vh;
+        }
+
+        #input-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .cat {
+            position: absolute;
+            font-size: 40px;
+            animation: crawl 8s linear infinite;
+        }
+
+        @keyframes crawl {
+            0% { left: -50px; }
+            100% { left: 100%; }
+        }
+
+        input, button {
+            padding: 15px;
+            margin: 10px;
+            border: 3px solid #ff69b4;
+            border-radius: 20px;
+            font-size: 20px;
+            background: white;
+        }
+
+        #loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .snake-spinner {
+            font-size: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        #birthday-page {
+            display: none;
+            text-align: center;
+            padding-top: 20%;
+        }
+
+        h1 {
+            color: #ff1493;
+            font-size: 50px;
+            text-shadow: 2px 2px white;
+        }
+    </style>
+</head>
+<body>
+    <div id="input-page">
+        <div class="cat" style="top: 10%; animation-delay: 0s">🐾</div>
+        <div class="cat" style="top: 30%; animation-delay: 2s">🐾</div>
+        <div class="cat" style="top: 50%; animation-delay: 4s">🐾</div>
+        <h1>Enter Your Name Cutie! 🐾</h1>
+        <input type="text" id="name" placeholder="Your Name">
+        <button onclick="startCelebration()">Start Magic! ✨</button>
+    </div>
+
+    <div id="loading">
+        <div class="snake-spinner">🐍</div>
+        <h2>Getting Ready for Fun...</h2>
+    </div>
+
+    <div id="birthday-page">
+        <h1>Happy Birthday, <span id="birthday-name"></span>! 🎂</h1>
+        <h2>🎀 You're Purr-fect! 🎀</h2>
+    </div>
+
+    <script>
+        function startCelebration() {
+            const name = document.getElementById('name').value;
+            if (!name) return alert("Please enter your name sweetie! 🐾");
+
+            document.getElementById('input-page').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('birthday-page').style.display = 'block';
+                document.getElementById('birthday-name').textContent = name;
+                
+                // Confetti effects
+                var duration = 3000;
+                var end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 7,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#ff69b4', '#ff1493', '#ff85c2']
+                    });
+                    confetti({
+                        particleCount: 7,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#ff69b4', '#ff1493', '#ff85c2']
+                    });
+
+                    if (Date.now() < end) requestAnimationFrame(frame);
+                }());
+
+                // Random confetti bursts
+                setInterval(() => {
+                    confetti({
+                        particleCount: 100,
+                        spread: 100,
+                        origin: { y: 0.6 }
+                    });
+                }, 2000);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
